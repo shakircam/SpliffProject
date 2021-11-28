@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label">EMAIL ADDRESS</string>
+    <string name="password">PASSWORD</string>
+    <string name="terms">By creating an account you agree with out terms and conditions</string>
+    <string name="account">Create an account</string>
+    <string name="member">Already a member?</string>
+    <string name="log">log in</string>
+    <string name="text">Mark the occassion with these must have  products</string>
+    <string name="email">dukauwa.du@gmail.com</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="search">Search</string>
+    <string name="add">Add</string>
+    <string name="fulltext">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</string>
+    <string name="bag">Add to bag</string>
+    <string name="cpassword">Confirm Password</string>
+    <string name="name">Name</string>
+    <string name="login">Login</string>
+    <string name="shopping">Continue Shopping</string>
+</resources>

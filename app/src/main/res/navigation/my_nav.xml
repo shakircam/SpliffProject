@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.shakir.spliff.ui.fragment.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.shakir.spliff.ui.activity.HomeActivity"
+        android:label="activity_home"
+        tools:layout="@layout/activity_home" />
+    <activity
+        android:id="@+id/listActivity"
+        android:name="com.shakir.spliff.ui.activity.ListActivity"
+        android:label="activity_list"
+        tools:layout="@layout/activity_list" >
+
+        <argument
+            android:name="result"
+            app:argType="com.shakir.spliff.data.model.ProductData" />
+    </activity>
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.shakir.spliff.ui.fragment.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_boarderFragment"
+            app:destination="@id/boarderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/flowersFragment2"
+        android:name="com.shakir.spliff.ui.fragment.FlowersFragment"
+        android:label="fragment_flowers"
+        tools:layout="@layout/fragment_flowers" >
+        <action
+            android:id="@+id/action_flowersFragment2_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/boarderFragment"
+        android:name="com.shakir.spliff.ui.fragment.BoarderFragment"
+        android:label="BoarderFragment" >
+        <action
+            android:id="@+id/action_boarderFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_boarderFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.shakir.spliff.ui.fragment.RegistrationFragment"
+        android:label="RegistrationFragment" >
+        <action
+            android:id="@+id/action_registrationFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
+        <action
+            android:id="@+id/action_registrationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.shakir.spliff.ui.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
+    </fragment>
+</navigation>
