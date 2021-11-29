@@ -10,22 +10,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.shakir.spliff.data.model.UserResponse
+import com.shakir.spliff.data.network.ApiInterface
+import com.shakir.spliff.data.network.RetrofitClient
 import com.shakir.spliff.data.repository.UserRepository
 import com.shakir.spliff.data.viewmodel.UserViewModel
 import com.shakir.spliff.data.viewmodel.UserViewModelFactory
 import com.shakir.spliff.databinding.FragmentLoginBinding
 import com.shakir.spliff.ui.activity.HomeActivity
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-
+    private var code : String? = ""
+    private var token : String? = ""
     private val repository by lazy { UserRepository() }
     private val viewModel by lazy {
         val factory = UserViewModelFactory(repository)
-        ViewModelProvider(this, factory).get(UserViewModel::class.java)
+        ViewModelProvider(this, factory)[UserViewModel::class.java]
 
     }
 
@@ -56,13 +62,43 @@ class LoginFragment : Fragment() {
                 }
             }
 
-            viewModel.createUser(email,pass)
-            val intent = Intent(activity, HomeActivity::class.java)
-            startActivity(intent)
-            }
+           // viewModel.createUser(email,pass)
+            loginUser(email,pass)
+
+
+        }
 
         return binding.root
     }
 
+    private fun loginUser(email:String, password:String){
+
+        val apiInterface = RetrofitClient.getClient().create(ApiInterface::class.java)
+        val call =  apiInterface.login(email, password)
+        call.enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                response.body().let {
+                     token =  it?.success?.token.toString()
+                    Log.d("token", token!!)
+                    code = response.code().toString()
+
+                    if (code == "200" ){
+                        Log.d("co", code!!)
+                        val intent = Intent(activity, HomeActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else{
+                        Toast.makeText(requireContext(),"User is not registered",Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Log.d("error",t.localizedMessage)
+            }
+
+        })
+    }
 
 }

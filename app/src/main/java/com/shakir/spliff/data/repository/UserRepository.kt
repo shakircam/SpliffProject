@@ -1,5 +1,6 @@
 package com.shakir.spliff.data.repository
 
+import android.content.Context
 import android.util.Log
 import com.shakir.spliff.data.model.Registration
 import com.shakir.spliff.data.model.UserResponse
@@ -9,13 +10,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserRepository {
+class UserRepository() {
 
 
-     fun loginUser(email:String,password:String){
+    suspend fun loginUser(email:String,password:String){
 
           val apiInterface = RetrofitClient.getClient().create(ApiInterface::class.java)
-          val call =  apiInterface.login(email, password)
+       // return apiInterface.login(email, password)
+        /*  val call =  apiInterface.login(email, password)
           call.enqueue(object : Callback<UserResponse> {
              override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 response.body().let {
@@ -29,7 +31,7 @@ class UserRepository {
                  Log.d("error",t.localizedMessage)
              }
 
-         })
+         })*/
     }
 
     fun doRegistration(email:String,password:String,c_password:String,name:String){

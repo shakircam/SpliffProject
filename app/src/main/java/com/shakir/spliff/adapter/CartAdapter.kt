@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.adapters.CardViewBindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shakir.spliff.R
@@ -68,6 +67,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
         val minusItem = itemView.findViewById(R.id.minus_button) as TextView
 
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(cartList: List<CartData>){
         this.cartList = cartList
         notifyDataSetChanged()
