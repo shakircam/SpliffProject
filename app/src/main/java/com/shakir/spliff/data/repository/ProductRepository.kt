@@ -10,11 +10,19 @@ class ProductRepository(private val productDao: ProductDao) {
     val getAllData: LiveData<List<ProductData>> = productDao.getAllData()
     val getAllCartData: LiveData<List<CartData>> = productDao.getAllCartData()
 
+   suspend fun getItemId(title: String): String{
+      return productDao.getItemId(title).toString()
+    }
+
     suspend fun insertData(productData: ArrayList<ProductData>){
         productDao.insertData(productData)
     }
     suspend fun insertCartData(cartData: CartData){
         productDao.insertCartData(cartData)
+    }
+
+    suspend fun updateCartData(cartData: CartData){
+        productDao.updateCartData(cartData)
     }
 
     fun searchDatabase(searchQuery: String): LiveData<List<ProductData>> {

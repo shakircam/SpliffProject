@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import androidx.room.PrimaryKey
 import com.shakir.spliff.data.database.ProductDatabase
 import com.shakir.spliff.data.model.CartData
 import com.shakir.spliff.data.model.ProductData
@@ -32,6 +33,18 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertCartData(cartData)
         }
+    }
+
+    fun updateCartData(cartData: CartData){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateCartData(cartData)
+        }
+    }
+    fun getItemId(title: String): String {
+        viewModelScope.launch(Dispatchers.IO){
+             repository.getItemId(title)
+        }
+        return title
     }
 
     fun searchDatabase(searchQuery: String): LiveData<List<ProductData>>{

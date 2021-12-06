@@ -17,11 +17,24 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ArrayList<ProductData>)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCartData(cartData: CartData)
 
     @Delete
     suspend fun deleteItem(cartData: CartData)
+
+
+    @Query("SELECT * FROM cart_table WHERE id = :id")
+     fun getItemById(id : Int) : List<CartData>
+
+    @Query("UPDATE cart_table SET itemNumber = itemNumber + 1 WHERE id = :id")
+    fun updateQuantity(id : Int)
+
+    @Query("SELECT title FROM cart_table WHERE title = :title")
+    suspend fun getItemId(title: String): String?
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateCartData(cartData: CartData)
 
     @Query("SELECT * FROM product_table WHERE title LIKE :searchQuery")
     fun searchDatabase(searchQuery: String): LiveData<List<ProductData>>
