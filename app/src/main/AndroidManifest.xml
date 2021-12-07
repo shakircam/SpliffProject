@@ -28,10 +28,10 @@
             android:exported="false"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".ui.activity.HomeActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

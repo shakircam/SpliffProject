@@ -3,16 +3,22 @@ package com.shakir.spliff.data.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.PrimaryKey
 import com.shakir.spliff.data.database.ProductDatabase
 import com.shakir.spliff.data.model.CartData
+import com.shakir.spliff.data.model.CartTitle
 import com.shakir.spliff.data.model.ProductData
 import com.shakir.spliff.data.repository.ProductRepository
+import com.shakir.spliff.utils.DataFetchCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
+
+    val cartItemIdSuccessLiveData = MutableLiveData<Unit>()
+    val cartItemIdFailedLiveData = MutableLiveData<String>()
 
     private val productDao = ProductDatabase.getDatabase(
         application
@@ -21,6 +27,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     val getAllData: LiveData<List<ProductData>> = repository.getAllData
     val getAllCartData: LiveData<List<CartData>> = repository.getAllCartData
+    val getAllCartTitle : LiveData<List<CartTitle>> = repository.getAllCartTitle
 
     fun insertData(productData: ArrayList<ProductData>) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -40,11 +47,20 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             repository.updateCartData(cartData)
         }
     }
-    fun getItemId(title: String): String {
-        viewModelScope.launch(Dispatchers.IO){
-             repository.getItemId(title)
-        }
-        return title
+    fun getItemId(title: String) {
+      viewModelScope.launch(Dispatchers.IO){
+          repository.getItemId(title, object : DataFetchCallback<CartTitle> {
+              override fun onSuccess(data: CartTitle) {
+                  cartItemIdSuccessLiveData.postValue(Unit)
+              }
+
+              override fun onError(throwable: Throwable) {
+                  cartItemIdFailedLiveData.postValue(throwable.localizedMessage)
+              }
+
+          })
+      }
+
     }
 
     fun searchDatabase(searchQuery: String): LiveData<List<ProductData>>{
