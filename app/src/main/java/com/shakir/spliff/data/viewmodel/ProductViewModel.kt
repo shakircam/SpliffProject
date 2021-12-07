@@ -28,7 +28,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-
     fun insertCartData(cartData: CartData){
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertCartData(cartData)
@@ -41,11 +40,10 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
     fun getItemId(title: String): String {
-        viewModelScope.launch(Dispatchers.IO){
-             repository.getItemId(title)
-        }
-        return title
+
+          return  repository.getItemId(title)
     }
+
 
     fun searchDatabase(searchQuery: String): LiveData<List<ProductData>>{
         return repository.searchDatabase(searchQuery)
@@ -56,4 +54,11 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             repository.deleteItem(cartData)
         }
     }
+
+    fun updateQuantity(title : String){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateQuantity(title)
+        }
+    }
+
 }

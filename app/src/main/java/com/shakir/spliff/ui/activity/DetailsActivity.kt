@@ -12,9 +12,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import com.denzcoskun.imageslider.models.SlideModel
-import com.shakir.spliff.data.database.ProductDao
 import com.shakir.spliff.data.model.CartData
-import com.shakir.spliff.data.model.ProductData
 import com.shakir.spliff.data.viewmodel.ProductViewModel
 
 
@@ -25,7 +23,6 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var myViewModel: ProductViewModel
     var number = 1
     var counter = 1
-    //private lateinit var productDao : ProductDao
     val cartItems = mutableListOf<CartData>()
 
     @SuppressLint("SetTextI18n")
@@ -42,7 +39,6 @@ class DetailsActivity : AppCompatActivity() {
         val price = intent.getIntExtra("price",0)
         Log.d("price",price.toString())
 
-       //productDao.getItemByTitle(title!!)
         var totalPrice = price
          val image = intent.getStringExtra("image")
          Log.d("url",image.toString())
@@ -72,53 +68,77 @@ class DetailsActivity : AppCompatActivity() {
             binding.number.text = number.toString()
             binding.totalPrice.text = "$totalPrice$"
         }
+
         myViewModel.getAllCartData.observe(this,{
             cartItems.addAll(it)
         })
 
         binding.cart.setOnClickListener {
 
-            for(i in  cartItems.indices){
-                if(title == cartItems[i].title){
+
+            try {
+                val dbTitle = myViewModel.getItemId(title!!)
+                Log.d("sala","go for the")
+                Log.d("debuh",title)
+                Log.d("get", dbTitle)
+
+                if (dbTitle == title){
+
+                    Log.d("getid", title)
                     // update
                     val cartData = CartData(
-                        0,title!!, totalPrice, image!!, description!!, number
+                        0, title, totalPrice, image!!, description!!, number
                     )
                     myViewModel.updateCartData(cartData)
                     val intent = Intent(this, CartActivity::class.java)
                     startActivity(intent)
+                }else{
+                    //insert
+                    Log.d("getbd", title)
+                    val cartData = CartData(
+                        0,title, totalPrice, image!!, description!!, number
+                    )
+                    myViewModel.insertCartData(cartData)
+                    val intent = Intent(this, CartActivity::class.java)
+                    startActivity(intent)
                 }
-                //insert
-                val cartData = CartData(
-                    0,title!!, totalPrice, image!!, description!!, number
-                )
-                myViewModel.insertCartData(cartData)
-                val intent = Intent(this, CartActivity::class.java)
-                startActivity(intent)
+            }catch (e : Exception ){
+                Log.d("error",e.toString())
             }
 
-          /*  val dbTitle = myViewModel.getItemId(title!!)
-            Log.d("title", dbTitle)
-            if (dbTitle.isEmpty()){
-                val cartData = CartData(
-                    0,title, totalPrice, image!!, description!!, number
-                )
-                myViewModel.insertCartData(cartData)
-                val intent = Intent(this, CartActivity::class.java)
-                startActivity(intent)
-            }else{
-                val cartData = CartData(
-                    0,title, totalPrice, image!!, description!!, number
-                )
-                myViewModel.updateCartData(cartData)
-                val intent = Intent(this, CartActivity::class.java)
-                startActivity(intent)
+
+         /*   for( i in  cartItems.indices){
+                if(title == cartItems[i].title){
+                    // update
+                    val cartData = CartData(
+                        0, title, totalPrice, image!!, description!!, number
+                    )
+                    myViewModel.updateCartData(cartData)
+                    val intent = Intent(this, CartActivity::class.java)
+                    startActivity(intent)
+                    break
+                }else{
+                    //insert
+                    val cartData = CartData(
+                        0,title!!, totalPrice, image!!, description!!, number
+                    )
+                    myViewModel.insertCartData(cartData)
+                    val intent = Intent(this, CartActivity::class.java)
+                    startActivity(intent)
+                    break
+                }
+
             }*/
 
+              /*  val cartData = CartData(
+                   0, title!!, totalPrice,image!!,description!!,number)
+                myViewModel.insertCartData(cartData)
+
+            val intent= Intent(this,CartActivity::class.java)
+                startActivity(intent)*/
         }
 
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater

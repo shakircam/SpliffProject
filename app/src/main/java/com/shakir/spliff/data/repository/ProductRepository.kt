@@ -10,8 +10,9 @@ class ProductRepository(private val productDao: ProductDao) {
     val getAllData: LiveData<List<ProductData>> = productDao.getAllData()
     val getAllCartData: LiveData<List<CartData>> = productDao.getAllCartData()
 
-   suspend fun getItemId(title: String): String{
+    fun getItemId(title: String): String{
       return productDao.getItemId(title).toString()
+
     }
 
     suspend fun insertData(productData: ArrayList<ProductData>){
@@ -20,10 +21,10 @@ class ProductRepository(private val productDao: ProductDao) {
     suspend fun insertCartData(cartData: CartData){
         productDao.insertCartData(cartData)
     }
-
     suspend fun updateCartData(cartData: CartData){
         productDao.updateCartData(cartData)
     }
+
 
     fun searchDatabase(searchQuery: String): LiveData<List<ProductData>> {
         return productDao.searchDatabase(searchQuery)
@@ -32,4 +33,9 @@ class ProductRepository(private val productDao: ProductDao) {
     suspend fun deleteItem(cartData: CartData){
         productDao.deleteItem(cartData)
     }
+
+    fun updateQuantity(title : String){
+        productDao.updateQuantity(title)
+    }
+
 }

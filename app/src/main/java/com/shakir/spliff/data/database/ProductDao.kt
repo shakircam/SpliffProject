@@ -24,14 +24,11 @@ interface ProductDao {
     suspend fun deleteItem(cartData: CartData)
 
 
-    @Query("SELECT * FROM cart_table WHERE id = :id")
-     fun getItemById(id : Int) : List<CartData>
+    @Query("UPDATE cart_table SET itemNumber = itemNumber + 1  WHERE title = :title")
+    fun updateQuantity(title : String)
 
-    @Query("UPDATE cart_table SET itemNumber = itemNumber + 1 WHERE id = :id")
-    fun updateQuantity(id : Int)
-
-    @Query("SELECT title FROM cart_table WHERE title = :title")
-    suspend fun getItemId(title: String): String?
+    @Query("SELECT title FROM cart_table WHERE title = :title LIMIT 1")
+    fun getItemId(title: String): String?
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateCartData(cartData: CartData)
