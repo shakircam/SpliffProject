@@ -3,6 +3,7 @@ package com.shakir.spliff.data.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.shakir.spliff.data.model.CartData
+import com.shakir.spliff.data.model.CartTitle
 import com.shakir.spliff.data.model.ProductData
 
 @Dao
@@ -14,18 +15,21 @@ interface ProductDao {
     @Query("SELECT * FROM cart_table ORDER BY id ASC")
     fun getAllCartData(): LiveData<List<CartData>>
 
+    @Query("SELECT title FROM cart_table ")
+    fun allCartTitle(): List<CartTitle>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ArrayList<ProductData>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCartData(cartData: CartData)
 
     @Delete
     suspend fun deleteItem(cartData: CartData)
 
 
-    @Query("UPDATE cart_table SET itemNumber = itemNumber + 1  WHERE title = :title")
-    fun updateQuantity(title : String)
+    @Query("UPDATE cart_table SET itemNumber = :itemNumber   WHERE title = :title")
+    fun updateQuantity(title : String, itemNumber : Int)
 
     @Query("SELECT title FROM cart_table WHERE title = :title LIMIT 1")
     fun getItemId(title: String): String?

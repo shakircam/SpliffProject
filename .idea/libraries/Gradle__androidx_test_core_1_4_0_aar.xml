@@ -1,11 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.test:core:1.4.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d106318c7ab38a963498d74f818815d7/transformed/jetified-core-1.4.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d106318c7ab38a963498d74f818815d7/transformed/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d106318c7ab38a963498d74f818815d7/transformed/jetified-core-1.4.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.jdks/corretto-11.0.13/caches/transforms-3/d106318c7ab38a963498d74f818815d7/transformed/jetified-core-1.4.0/res" />
       <root url="jar://$USER_HOME$/.jdks/corretto-11.0.13/caches/transforms-3/d106318c7ab38a963498d74f818815d7/transformed/jetified-core-1.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.jdks/corretto-11.0.13/caches/transforms-3/d106318c7ab38a963498d74f818815d7/transformed/jetified-core-1.4.0/res" />
       <root url="file://$USER_HOME$/.jdks/corretto-11.0.13/caches/transforms-3/d106318c7ab38a963498d74f818815d7/transformed/jetified-core-1.4.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
