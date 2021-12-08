@@ -1,6 +1,7 @@
 package com.shakir.spliff.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shakir.spliff.R
+import com.shakir.spliff.data.database.ProductDatabase
 import com.shakir.spliff.data.model.CartData
+import com.shakir.spliff.data.model.CartPrice
 
 
 class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
      var cartList = emptyList<CartData>()
     var counter = 1
     var itemNumber = 1
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         return CartViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.cart_item, parent, false)
@@ -36,7 +41,9 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
         holder.price.text = currentItem.price.toString()+" $"
         holder.itemNumber.text = currentItem.itemNumber.toString()
         holder.addItem.setOnClickListener {
-            counter ++
+            if (counter<9){
+            counter++
+             }
             itemNumber = counter * 1
             val increasePrice = itemNumber* currentItem.price
             holder.price.text = "$increasePrice$"
@@ -45,7 +52,9 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
         }
 
         holder.minusItem.setOnClickListener {
-            counter --
+            if (counter>1){
+                counter--
+            }
             itemNumber = counter / 1
             val increasePrice = itemNumber* currentItem.price
             holder.price.text = "$increasePrice$"
@@ -83,5 +92,16 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
          Log.d("debug",totalPrice.toString())
              return totalPrice
          }
+
+    suspend fun getItemNumber(context :Context){
+
+        val db = ProductDatabase.getDatabase(context).productDao()
+        val item = db.getAllCartPrice()
+        val priceList = mutableListOf<CartPrice>()
+        priceList.addAll(item)
+        for (i in priceList.indices){
+
+        }
+    }
 
 }

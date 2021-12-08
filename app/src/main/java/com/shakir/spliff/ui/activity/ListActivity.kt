@@ -66,5 +66,4 @@ class ListActivity : AppCompatActivity() {
         return true
     }
 
-
 }

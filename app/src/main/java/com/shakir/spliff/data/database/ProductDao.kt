@@ -3,6 +3,7 @@ package com.shakir.spliff.data.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.shakir.spliff.data.model.CartData
+import com.shakir.spliff.data.model.CartPrice
 import com.shakir.spliff.data.model.CartTitle
 import com.shakir.spliff.data.model.ProductData
 
@@ -16,10 +17,13 @@ interface ProductDao {
     fun getAllCartData(): LiveData<List<CartData>>
 
     @Query("SELECT title FROM cart_table")
-   suspend fun allCartData(): List<CartTitle>
+    suspend fun getAllCartTitle(): List<CartTitle>
 
-    @Query("SELECT title FROM cart_table")
-    fun getTitle(): LiveData<List<CartTitle>>
+    @Query("SELECT * FROM cart_table ")
+    suspend fun getAllCartPrice(): List<CartPrice>
+
+    @Query("SELECT * FROM cart_table ")
+     fun getCartPrice(): LiveData<List<CartPrice>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ArrayList<ProductData>)
@@ -34,8 +38,8 @@ interface ProductDao {
     @Query("SELECT * FROM cart_table WHERE id = :id")
      fun getItemById(id : Int) : List<CartData>
 
-    @Query("UPDATE cart_table SET itemNumber = itemNumber + 1 WHERE id = :id")
-    fun updateQuantity(id : Int)
+    @Query("UPDATE cart_table SET itemNumber = itemNumber+:itemNumber,price = price+:price   WHERE title = :title")
+    fun updateQuantity(title : String, itemNumber : Int, price : Int)
 
     @Query("SELECT title FROM cart_table WHERE title = :title")
     suspend fun getItemId(title: String): CartTitle

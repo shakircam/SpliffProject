@@ -1,25 +1,32 @@
 package com.shakir.spliff.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.shakir.spliff.adapter.CartAdapter
 import com.shakir.spliff.data.model.CartData
+import com.shakir.spliff.data.model.CartPrice
 import com.shakir.spliff.data.viewmodel.ProductViewModel
 import com.shakir.spliff.databinding.ActivityCartBinding
 import com.shakir.spliff.utils.SwipeToDelete
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class CartActivity : AppCompatActivity() {
     private val adapter by lazy { CartAdapter() }
     private lateinit var myViewModel: ProductViewModel
     private lateinit var binding: ActivityCartBinding
+    var totalAmount = 0
+    val cartItems = mutableListOf<CartPrice>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +36,39 @@ class CartActivity : AppCompatActivity() {
             val intent =  Intent(this,PaymentActivity::class.java)
             startActivity(intent)
         }
-        myViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        myViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
         initRecyclerView()
+
         myViewModel.getAllCartData.observe(this,{
             adapter.setData(it)
         })
         adapter.grandTotal()
+
+        myViewModel.getCartPrice.observe(this,{
+
+            cartItems.addAll(it)
+            for (i in cartItems.indices){
+                totalAmount += cartItems[i].price
+            }
+
+            binding.price.text ="$totalAmount"
+        })
+        //getPrice()
+    }
+
+
+    private fun getPrice(){
+        lifecycleScope.launch(Dispatchers.IO){
+            val price =  myViewModel.getAllCartPrice()
+            val priceList = mutableListOf<CartPrice>()
+            priceList.addAll(price)
+
+            for (i in priceList.indices){
+                totalAmount += priceList[i].price
+            }
+
+            binding.price.text ="$totalAmount"
+        }
     }
 
     private fun initRecyclerView() {
@@ -73,5 +107,8 @@ class CartActivity : AppCompatActivity() {
         snackBar.show()
     }
 
-
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_flowersFragment2_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_flowersFragment2_to_addToFragment"
+            app:destination="@id/addToFragment" />
     </fragment>
     <fragment
         android:id="@+id/boarderFragment"
@@ -75,4 +78,13 @@
             android:id="@+id/action_loginFragment_to_homeActivity"
             app:destination="@id/homeActivity" />
     </fragment>
+    <dialog
+        android:id="@+id/addToFragment"
+        android:name="com.shakir.spliff.ui.fragment.AddToFragment"
+        android:label="Dialog"
+        tools:layout="@layout/fragment_add_to" >
+        <action
+            android:id="@+id/action_addToFragment_to_flowersFragment2"
+            app:destination="@id/flowersFragment2" />
+    </dialog>
 </navigation>

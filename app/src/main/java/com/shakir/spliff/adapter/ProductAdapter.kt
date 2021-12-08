@@ -6,10 +6,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shakir.spliff.R
 import com.shakir.spliff.data.model.ProductData
+import com.shakir.spliff.ui.fragment.BoarderFragmentDirections
+import com.shakir.spliff.ui.fragment.FlowersFragmentDirections
 
 class ProductAdapter(private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder> () {
 
@@ -34,6 +39,10 @@ class ProductAdapter(private val itemClickListener: ItemClickListener) : Recycle
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(position)
         }
+        holder.addButton.setOnClickListener {
+          itemClickListener.onAddClick()
+
+        }
 
     }
 
@@ -46,11 +55,12 @@ class ProductAdapter(private val itemClickListener: ItemClickListener) : Recycle
         val title = itemView.findViewById(R.id.title) as TextView
         val description = itemView.findViewById(R.id.description) as TextView
         val price = itemView.findViewById(R.id.price) as TextView
-        val button = itemView.findViewById(R.id.login) as Button
+        val addButton = itemView.findViewById(R.id.add) as Button
     }
 
     fun setData(productList: List<ProductData>){
         this.productList = productList
         notifyDataSetChanged()
     }
+
 }

@@ -6,16 +6,18 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.shakir.spliff.R
 import com.shakir.spliff.adapter.ItemClickListener
 import com.shakir.spliff.adapter.ProductAdapter
 import com.shakir.spliff.data.model.ProductData
 import com.shakir.spliff.data.viewmodel.ProductViewModel
 import com.shakir.spliff.databinding.FragmentFlowersBinding
 import com.shakir.spliff.ui.activity.DetailsActivity
-import kotlinx.coroutines.Dispatchers
 
 
 class FlowersFragment : Fragment(),ItemClickListener, SearchView.OnQueryTextListener{
@@ -44,7 +46,7 @@ class FlowersFragment : Fragment(),ItemClickListener, SearchView.OnQueryTextList
         array.add("https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2020/8/20/0/CI_Ball-Horticultural-Co_Sorbet-Black-Delight-viola.jpg.rend.hgtvcom.616.822.suffix/1597923373681.jpeg")
         array.add("https://hgtvhome.sndimg.com/content/dam/images/hgtv/stock/2018/3/2/shutterstock_anemone-134595248.jpg.rend.hgtvcom.616.411.suffix/1519931799331.jpeg")
 
-        myViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        myViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
 
         initRecyclerView()
 
@@ -79,6 +81,7 @@ class FlowersFragment : Fragment(),ItemClickListener, SearchView.OnQueryTextList
         })
 
         binding.searchView.setOnQueryTextListener(this)
+
         return binding.root
     }
 
@@ -106,6 +109,11 @@ class FlowersFragment : Fragment(),ItemClickListener, SearchView.OnQueryTextList
         startActivity(intent)
     }
 
+    override fun onAddClick() {
+        /*val action = FlowersFragmentDirections.actionFlowersFragment2ToAddToFragment()
+        view?.findNavController()?.navigate(action)*/
+    }
+
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
             searchThroughDatabase(query)
@@ -129,4 +137,6 @@ class FlowersFragment : Fragment(),ItemClickListener, SearchView.OnQueryTextList
             }
         })
     }
+
+
 }
