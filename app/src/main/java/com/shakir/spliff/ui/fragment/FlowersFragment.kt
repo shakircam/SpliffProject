@@ -110,8 +110,14 @@ class FlowersFragment : Fragment(),ItemClickListener, SearchView.OnQueryTextList
     }
 
     override fun onAddClick() {
-        /*val action = FlowersFragmentDirections.actionFlowersFragment2ToAddToFragment()
-        view?.findNavController()?.navigate(action)*/
+        showDialog()
+    }
+
+    private fun showDialog() {
+        val addDialogFragment = AddToFragment()
+        addDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog)
+        addDialogFragment.show(parentFragmentManager.beginTransaction(),"Dialog")
+
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

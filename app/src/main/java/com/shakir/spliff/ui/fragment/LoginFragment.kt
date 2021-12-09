@@ -26,6 +26,7 @@ import retrofit2.Response
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
     private var code : String? = ""
     private var token : String? = ""
     private val repository by lazy { UserRepository() }

@@ -34,12 +34,24 @@
         <entry key="..\:/Users/10.win/StudioProjects/Spliff/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/10.win/StudioProjects/Spliff/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3723958333333333" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.2151268115942029" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.20380434782608695" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.20380434782608695" />
         <entry key="app/src/main/res/layout/activity_list.xml" value="0.2151268115942029" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.20380434782608695" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.20380434782608695" />
+        <entry key="app/src/main/res/layout/activity_user.xml" value="0.20380434782608695" />
+        <entry key="app/src/main/res/layout/fragment_add.xml" value="0.18795289855072464" />
         <entry key="app/src/main/res/layout/fragment_add_to.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_details.xml" value="0.2151268115942029" />
         <entry key="app/src/main/res/layout/fragment_dialog.xml" value="0.2151268115942029" />
         <entry key="app/src/main/res/layout/fragment_flowers.xml" value="0.2151268115942029" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.20380434782608695" />
         <entry key="app/src/main/res/layout/spliff_item.xml" value="0.2151268115942029" />
+        <entry key="app/src/main/res/layout/toolbar.xml" value="0.20380434782608695" />
+        <entry key="app/src/main/res/menu/cart_menu.xml" value="0.3385416666666667" />
+        <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.3385416666666667" />
+        <entry key="app/src/main/res/menu/menu_search.xml" value="0.3385416666666667" />
+        <entry key="app/src/main/res/menu/search_menu.xml" value="0.3385416666666667" />
       </map>
     </option>
   </component>

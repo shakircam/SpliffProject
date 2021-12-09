@@ -31,7 +31,9 @@ class CartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setContentView(binding.root)
+
         binding.account.setOnClickListener {
             val intent =  Intent(this,PaymentActivity::class.java)
             startActivity(intent)

@@ -18,8 +18,8 @@ import com.shakir.spliff.data.model.CartPrice
 
 class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
      var cartList = emptyList<CartData>()
-    var counter = 1
-    var itemNumber = 1
+    var counter = 0
+   // var itemNumber = 1
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -44,10 +44,13 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
             if (counter<9){
             counter++
              }
-            itemNumber = counter * 1
-            val increasePrice = itemNumber* currentItem.price
+            var value = currentItem.itemNumber
+            value += counter
+            val increasePrice = value * currentItem.price
+           // val increasePrice = itemNumber* currentItem.price
             holder.price.text = "$increasePrice$"
-            holder.itemNumber.text = itemNumber.toString()
+            holder.itemNumber.text = value.toString()
+            //holder.itemNumber.text = itemNumber.toString()
 
         }
 
@@ -55,10 +58,10 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
             if (counter>1){
                 counter--
             }
-            itemNumber = counter / 1
-            val increasePrice = itemNumber* currentItem.price
+            currentItem.itemNumber = counter / 1
+            val increasePrice = currentItem.itemNumber* currentItem.price
             holder.price.text = "$increasePrice$"
-            holder.itemNumber.text = itemNumber.toString()
+            holder.itemNumber.text = currentItem.itemNumber.toString()
         }
     }
 
