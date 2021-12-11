@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.shakir.spliff.R
 import com.shakir.spliff.adapter.ItemClickListener
 import com.shakir.spliff.adapter.ProductAdapter
+import com.shakir.spliff.data.model.CartData
 import com.shakir.spliff.data.model.ProductData
 import com.shakir.spliff.data.viewmodel.ProductViewModel
 import com.shakir.spliff.databinding.FragmentFlowersBinding
@@ -104,6 +108,31 @@ class FlowersFragment : Fragment(),ItemClickListener, SearchView.OnQueryTextList
         intent.putExtra("price",price)
         intent.putExtra("image",image)
         startActivity(intent)
+    }
+
+    override fun onAddClick(productData: ProductData) {
+
+        val bundle = Bundle()
+        bundle.putInt("id",productData.id)
+        bundle.putString("title",productData.title)
+        bundle.putString("description",productData.description)
+        bundle.putString("image",productData.image)
+        bundle.putInt("price",productData.price)
+        setFragmentResult("key",bundle)
+
+        showDialog()
+    }
+
+    private fun showDialog() {
+        val addDialogFragment = AddToFragment()
+        addDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog)
+        addDialogFragment.show(parentFragmentManager.beginTransaction(),"Dialog")
+
+
+    }
+
+    override fun onItemSend(cartData: CartData) {
+        // empty..
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

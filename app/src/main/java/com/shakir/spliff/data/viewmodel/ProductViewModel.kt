@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.PrimaryKey
 import com.shakir.spliff.data.database.ProductDatabase
 import com.shakir.spliff.data.model.CartData
+import com.shakir.spliff.data.model.CartPrice
 import com.shakir.spliff.data.model.CartTitle
 import com.shakir.spliff.data.model.ProductData
 import com.shakir.spliff.data.repository.ProductRepository
@@ -22,7 +23,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     val getAllData: LiveData<List<ProductData>> = repository.getAllData
     val getAllCartData: LiveData<List<CartData>> = repository.getAllCartData
-
+    val getCartPrice : LiveData<List<CartPrice>> = repository.getCartPrice
 
     fun insertData(productData: ArrayList<ProductData>) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -57,9 +58,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun updateQuantity(title : String, itemNumber : Int){
+    fun updateQuantity(title : String, itemNumber : Int, price:Int){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateQuantity(title,itemNumber)
+            repository.updateQuantity(title,itemNumber,price)
         }
     }
 

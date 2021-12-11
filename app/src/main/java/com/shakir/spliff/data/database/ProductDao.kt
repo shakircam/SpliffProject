@@ -3,6 +3,7 @@ package com.shakir.spliff.data.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.shakir.spliff.data.model.CartData
+import com.shakir.spliff.data.model.CartPrice
 import com.shakir.spliff.data.model.CartTitle
 import com.shakir.spliff.data.model.ProductData
 
@@ -15,8 +16,14 @@ interface ProductDao {
     @Query("SELECT * FROM cart_table ORDER BY id ASC")
     fun getAllCartData(): LiveData<List<CartData>>
 
+    @Query("SELECT * FROM cart_table ")
+    fun getCartPrice(): LiveData<List<CartPrice>>
+
     @Query("SELECT title FROM cart_table ")
     fun allCartTitle(): List<CartTitle>
+
+    @Query("SELECT * FROM cart_table ")
+    fun allCartList(): List<CartData>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ArrayList<ProductData>)
@@ -28,8 +35,8 @@ interface ProductDao {
     suspend fun deleteItem(cartData: CartData)
 
 
-    @Query("UPDATE cart_table SET itemNumber = :itemNumber   WHERE title = :title")
-    fun updateQuantity(title : String, itemNumber : Int)
+    @Query("UPDATE cart_table SET itemNumber = :itemNumber,price = :price   WHERE title = :title")
+    fun updateQuantity(title : String, itemNumber : Int,price :Int)
 
     @Query("SELECT title FROM cart_table WHERE title = :title LIMIT 1")
     fun getItemId(title: String): String?

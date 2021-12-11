@@ -28,6 +28,8 @@ class DetailsActivity : AppCompatActivity() {
     var number = 1
     var counter = 1
     var flag =0
+    var newnumber=0
+    var newPrice=0
     val cartItems = mutableListOf<CartData>()
 
 
@@ -85,12 +87,17 @@ class DetailsActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO){
                 val productDao = ProductDatabase.getDatabase(applicationContext).productDao()
                 val list = productDao.allCartTitle()
+                val allList = productDao.allCartList()
+                val cartList = mutableListOf<CartData>()
+                cartList.addAll(allList)
+
                 val cartTitle = mutableListOf<CartTitle>()
                 cartTitle.addAll(list)
 
-                for (i in cartTitle){
+                for (i in cartList){
                     if (title == i.title) {
-
+                        newnumber = i.itemNumber+number
+                        newPrice = (i.price/i.itemNumber)*newnumber
                         flag =10
                         break
                     }
@@ -99,10 +106,8 @@ class DetailsActivity : AppCompatActivity() {
                 if(flag == 10){
                     // update
                     Log.d("tag", number.toString())
-                    /*val cartData = CartData(
-                        0, title!!, totalPrice, image!!, description!!, number
-                    )*/
-                    myViewModel.updateQuantity(title!!,number)
+
+                    myViewModel.updateQuantity(title!!,newnumber,newPrice)
                     Log.d("tag", "update::, $title")
 
                 }else{

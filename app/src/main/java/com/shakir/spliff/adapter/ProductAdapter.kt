@@ -34,6 +34,10 @@ class ProductAdapter(private val itemClickListener: ItemClickListener) : Recycle
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(position)
         }
+        holder.addButton.setOnClickListener {
+            val productData = ProductData(currentItem.id,currentItem.title,currentItem.price,currentItem.image,currentItem.description)
+            itemClickListener.onAddClick(productData)
+        }
 
     }
 
@@ -46,7 +50,7 @@ class ProductAdapter(private val itemClickListener: ItemClickListener) : Recycle
         val title = itemView.findViewById(R.id.title) as TextView
         val description = itemView.findViewById(R.id.description) as TextView
         val price = itemView.findViewById(R.id.price) as TextView
-        val button = itemView.findViewById(R.id.login) as Button
+        val addButton = itemView.findViewById(R.id.add) as Button
     }
 
     fun setData(productList: List<ProductData>){
