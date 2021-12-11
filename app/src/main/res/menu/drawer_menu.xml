@@ -24,8 +24,8 @@
         android:title="Flowers" />
 
     <item
-        android:id="@+id/accessories"
-        android:title="Accessories" />
+        android:id="@+id/user"
+        android:title="user" />
 
     <item
         android:id="@+id/logout"

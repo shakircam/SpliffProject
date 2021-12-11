@@ -319,7 +319,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/remove/baseline_remove_24.xml" />
+                                      <entry key="url" value="jar:file:/private/var/folders/3k/rys9k8795h50zb_1vn3th_6r0000gp/T/AppTranslocation/1F622755-A2E8-4304-A2C2-81236428A8B1/d/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material/icons/materialicons/block/baseline_block_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -329,9 +329,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="remove" />
-                            <entry key="sourceFile" value="C:\Users\10.win\StudioProjects\Spliff" />
+                            <entry key="color" value="0c0c0c" />
+                            <entry key="outputName" value="exict" />
+                            <entry key="sourceFile" value="/C:\Users\10.win\StudioProjects\Spliff" />
                           </map>
                         </option>
                       </PersistentState>

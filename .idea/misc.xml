@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../Library/Android/sdk/platforms/android-31/data/res/drawable/edit_text.xml" value="0.35885416666666664" />
         <entry key="..\:/Users/10.win/StudioProjects/Spliff/app/src/main/res/drawable/gradent_bg.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/10.win/StudioProjects/Spliff/app/src/main/res/drawable/searchview_background.xml" value="0.26666666666666666" />
         <entry key="..\:/Users/10.win/StudioProjects/Spliff/app/src/main/res/layout/activity_cart.xml" value="0.35625" />
@@ -33,6 +34,8 @@
         <entry key="..\:/Users/10.win/StudioProjects/Spliff/app/src/main/res/menu/search_menu.xml" value="0.2953703703703704" />
         <entry key="..\:/Users/10.win/StudioProjects/Spliff/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/10.win/StudioProjects/Spliff/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3723958333333333" />
+        <entry key="app/src/main/res/drawable/exict.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/drawable/gradent_bg.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.2151268115942029" />
         <entry key="app/src/main/res/layout/activity_details.xml" value="0.20380434782608695" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.20380434782608695" />

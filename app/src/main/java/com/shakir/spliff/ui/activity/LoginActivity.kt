@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import com.shakir.spliff.R
 import com.shakir.spliff.data.model.UserResponse
 import com.shakir.spliff.data.network.ApiInterface
 import com.shakir.spliff.data.network.RetrofitClient
-import com.shakir.spliff.databinding.ActivityHomeBinding
 import com.shakir.spliff.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,17 +18,33 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private var code : String? = ""
     private var token : String? = ""
+    //private var email : String? = ""
+    //private var password : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
 
+        val sharedPreferences = getSharedPreferences("my_sharedPreference",0)
+        val editor = sharedPreferences.edit()
+        val emil = sharedPreferences.getString("email",null)
+        val pas = sharedPreferences.getString("pass",null)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if ( emil!= null && pas!= null){
+            val intent = Intent(this,HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         binding.login.setOnClickListener {
 
             val email = binding.email.editText?.text.toString()
             val pass = binding.outlinedPassword.editText?.text.toString()
+
+            editor.putString("email",email)
+            editor.putString("pass",pass)
+            editor.commit()
 
             when{
                 TextUtils.isEmpty(email) ->{
@@ -51,6 +64,8 @@ class LoginActivity : AppCompatActivity() {
             loginUser(email,pass)
         }
 
+
+
         setContentView(binding.root)
     }
 
@@ -62,13 +77,15 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 response.body().let {
                     token =  it?.success?.token.toString()
-                    Log.d("token", token!!)
                     code = response.code().toString()
+
+                    Log.d("token", token!!)
 
                     if (code == "200" ){
                         Log.d("co", code!!)
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                     else{
                         Toast.makeText(this@LoginActivity,"User is not registered", Toast.LENGTH_SHORT).show()
@@ -84,8 +101,5 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
+
 }

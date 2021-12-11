@@ -29,11 +29,11 @@ class LoginFragment : Fragment() {
 
     private var code : String? = ""
     private var token : String? = ""
+
     private val repository by lazy { UserRepository() }
     private val viewModel by lazy {
         val factory = UserViewModelFactory(repository)
         ViewModelProvider(this, factory)[UserViewModel::class.java]
-
     }
 
     override fun onCreateView(
