@@ -21,8 +21,8 @@ import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private var flag = 0
     lateinit var toggle: ActionBarDrawerToggle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -85,7 +85,10 @@ class HomeActivity : AppCompatActivity() {
         builder.setPositiveButton("Yes") { _, _ ->
             hideLogOutItem()
             visibleLogIn()
-             flag++
+            val sharedPreferences = applicationContext.getSharedPreferences("my_sharedPreference",0)
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
             Toast.makeText(this,"Logged out successfully",Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") { _, _ ->
@@ -101,6 +104,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.search_menu, menu)
+        val menuPic = menu.findItem(R.id.menu_pic)
+        menuPic.isVisible = false
         return true
     }
 
@@ -137,17 +142,29 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun hideLogInItem(){
-        val menuView = binding.navigationView.menu
-        menuView.findItem(R.id.login).isVisible = false
-
-    }
-
     private fun visibleLogIn(){
         val menuView = binding.navigationView.menu
         menuView.findItem(R.id.login).isVisible = true
         menuView.findItem(R.id.profile).isVisible = false
        // val navMenu: Menu = binding.navigationView.getMenu()
        // navMenu.findItem(R.id.menu_pic).isVisible = false
+    }
+
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Close?")
+        builder.setMessage("Do you want to close the app?")
+        builder.setCancelable(false)
+        builder.setPositiveButton("Yes") { _, _ ->
+            finish()
+            Toast.makeText(this,"successfully close the app",Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("No") { _, _ ->
+            Toast.makeText(this,"Not Closed the app",Toast.LENGTH_SHORT).show()
+        }
+
+        val alertDialog : AlertDialog = builder.create()
+        alertDialog.show()
+        //super.onBackPressed()
     }
 }
